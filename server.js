@@ -27,6 +27,40 @@ Recipes.create(
 
 // when the root of this router is called with GET, return
 // all current ShoppingList items
+
+app.post('/recipes', jsonParser, (req, res) => {
+  if(!('name' in req.body) || !('ingredients' in req.body)){
+    const error = "Error: missing either the name or ingredients of the recipe";
+    console.log(error);
+    res.status(400).send(error);
+  } ;
+
+  const {name, ingredients} = req.body;
+  const item = Recipes.create(name, ingredients);
+  res.json(item);
+
+
+
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 app.get('/shopping-list', (req, res) => {
   res.json(ShoppingList.get());
 });
